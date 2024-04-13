@@ -10,6 +10,7 @@ import java.sql.DriverManager;
 public class DemoApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(DemoApplication.class, args);
+		System.out.println("test");
 		String url = "jdbc:mysql://localhost:3306:jdbc";
 		try{
 			Class.forName("com.mysql.cj.jdbc.Driver");
