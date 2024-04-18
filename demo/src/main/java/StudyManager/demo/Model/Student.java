@@ -1,11 +1,9 @@
 package StudyManager.demo.Model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
+@Table(name = "students")
 public class Student {
 
     @Id
@@ -22,29 +20,12 @@ public class Student {
 
     }
 
-    public Student(long id, String studentId, String firstName, String lastName, String nationalId, String address) {
-        this.id = id;
-        this.studentId = studentId;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.nationalId = nationalId;
-        this.address = address;
-    }
-
     public Student(String studentId, String firstName, String lastName, String nationalId, String address) {
         this.studentId = studentId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.nationalId = nationalId;
         this.address = address;
-    }
-
-    public Student(long id, String studentId, String firstName, String lastName, String nationalId) {
-        this.id = id;
-        this.studentId = studentId;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.nationalId = nationalId;
     }
 
     public Student(String studentId, String firstName, String lastName, String nationalId) {
@@ -103,16 +84,5 @@ public class Student {
         this.address = address;
     }
 
-    @Override
-    public String toString() {
-        return "Student{" +
-                "id=" + id +
-                ", studentId='" + studentId + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", nationalId='" + nationalId + '\'' +
-                ", address='" + address + '\'' +
-                '}';
-    }
 
 }

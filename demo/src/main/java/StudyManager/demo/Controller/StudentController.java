@@ -1,27 +1,100 @@
 package StudyManager.demo.Controller;
 
 import StudyManager.demo.Model.Student;
+import StudyManager.demo.Repository.StudentRepository;
 import StudyManager.demo.Service.StudentService;
+import ch.qos.logback.core.encoder.EchoEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.RequestEntity;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "api/v1/student")
 public class StudentController {
 
-    private final StudentService studentService;
+    private StudentRepository studentRepository;
 
     @Autowired
-    public StudentController(StudentService studentService) {
-        this.studentService = studentService;
+    public StudentController (StudentRepository studentRepository){
+        this.studentRepository = studentRepository;
     }
 
-    @GetMapping
-    public List<Student> getStudents(){
-        return studentService.getStudents();
+    @PostMapping("/Student")
+    public ResponseEntity<Student> creatStudent(@RequestBody Student student){
+        try {
+            //creating a new student
+            Student newStudent = studentRepository.save(new Student(student.getStudentId(), student.getFirstName(), student.getLastName(),
+                    student.getNationalId(), student.getAddress()));
+            //posting the new student
+            return new ResponseEntity<>(newStudent, HttpStatus.CREATED);
+        }
+        catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
+
+    @GetMapping("/Student")
+    public ResponseEntity<List<Student>> getAllStudents(){
+        try{
+            List<Student> studentList = studentRepository.findAll();
+            if (studentList == null || studentList.isEmpty()){
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+            return new ResponseEntity<>(studentList, HttpStatus.OK);
+        }
+        catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/Student/{id}")
+    public ResponseEntity<Student> getStudent(@PathVariable Long id){
+        try{
+            Optional<Student> student = studentRepository.findById(id);
+            if (student.isPresent()){
+                return new ResponseEntity<>(student.get() , HttpStatus.OK);
+            }else {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+        }
+        catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PutMapping("/Student/{id}")
+    public ResponseEntity<Student> updateStudent(@PathVariable long id, @RequestBody Student student){
+        Optional<Student> studentData = studentRepository.findById(id);
+
+        if (studentData.isPresent()){
+            Student student1 = studentData.get();
+
+            student1.setStudentId(student.getStudentId());
+            student1.setFirstName(student.getFirstName());
+            student1.setLastName(student.getLastName());
+            student1.setNationalId(student.getNationalId());
+            student1.setAddress(student.getAddress());
+
+            return new ResponseEntity<>(studentRepository.save(student1), HttpStatus.OK);
+        }
+        else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @DeleteMapping("/Student/{id}")
+    public ResponseEntity<HttpStatus> deleteStudent(@PathVariable long id){
+        try {
+            studentRepository.deleteById(id);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
 }
