@@ -2,11 +2,8 @@ package StudyManager.demo.Controller;
 
 import StudyManager.demo.Model.Student;
 import StudyManager.demo.Repository.StudentRepository;
-import StudyManager.demo.Service.StudentService;
-import ch.qos.logback.core.encoder.EchoEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,10 +24,8 @@ public class StudentController {
     @PostMapping("/Student")
     public ResponseEntity<Student> creatStudent(@RequestBody Student student){
         try {
-            //creating a new student
             Student newStudent = studentRepository.save(new Student(student.getStudentId(), student.getFirstName(), student.getLastName(),
                     student.getNationalId(), student.getAddress()));
-            //posting the new student
             return new ResponseEntity<>(newStudent, HttpStatus.CREATED);
         }
         catch (Exception e){
@@ -93,7 +88,7 @@ public class StudentController {
             studentRepository.deleteById(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }catch (Exception e){
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 

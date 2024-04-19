@@ -1,11 +1,9 @@
 package StudyManager.demo.Model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
+@Table(name = "course")
 public class Course {
 
     @Id
@@ -15,19 +13,14 @@ public class Course {
     private String name;
     private int units;
 
-    public Course(long id, String name, int units) {
-        this.id = id;
-        this.name = name;
-        this.units = units;
+
+    public Course() {
+
     }
 
     public Course(String name, int units) {
         this.name = name;
         this.units = units;
-    }
-
-    public Course() {
-
     }
 
     public long getId() {
