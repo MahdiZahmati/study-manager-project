@@ -1,6 +1,7 @@
 package StudyManager.demo.Model;
 
 import jakarta.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "department")
@@ -12,6 +13,16 @@ public class Department {
 
     private String name;
     private String managerName;
+
+    @OneToMany(mappedBy = "department")
+    private List<Lecturer> lecturerList;
+
+    @OneToMany(mappedBy = "department")
+    private List<Student> studentList;
+
+    @OneToMany(mappedBy = "department")
+    private List<Course> courseList;
+
 
     public Department(){
 

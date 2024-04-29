@@ -1,7 +1,7 @@
 package StudyManager.demo.Model;
 
-
 import jakarta.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "Lecturer")
@@ -15,6 +15,13 @@ public class Lecturer {
     private String firstName;
     private String lastName;
     private String nationalId;
+
+    @ManyToOne
+    @JoinColumn(name = "departments")
+    private Department department;
+
+    @OneToMany(mappedBy = "Lecturer")
+    private List<Course> courseList;
 
     public Lecturer(){
 
