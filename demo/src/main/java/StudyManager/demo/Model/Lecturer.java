@@ -16,10 +16,6 @@ public class Lecturer {
     private String lastName;
     private String nationalId;
 
-    @ManyToOne
-    @JoinColumn(name = "departments")
-    private Department department;
-
     @OneToMany(mappedBy = "Lecturer")
     private List<Course> courseList;
 

@@ -14,10 +14,6 @@ public class Course {
     private String name;
     private int units;
 
-    @ManyToOne
-    @JoinColumn(name = "student-id")
-    private Student student;
-
     @OneToMany(mappedBy = "course")
     private List<Student> studentList;
 
