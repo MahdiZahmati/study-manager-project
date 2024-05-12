@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -48,8 +47,8 @@ public class CourseController {
         }
     }
 
-    @GetMapping("/Course")
-    public ResponseEntity<Course> getCourse(@PathVariable Long id){
+    @GetMapping("/Course/{id}")
+    public ResponseEntity<Course> getCourse(@PathVariable("id") Long id){
         try{
             Optional<Course> course = courseRepository.findById(id);
             if(course.isPresent()){
@@ -65,7 +64,7 @@ public class CourseController {
     }
 
     @PutMapping("/Course/{id}")
-    public ResponseEntity<Course> updateCourse(@PathVariable Long id, @RequestBody Course course){
+    public ResponseEntity<Course> updateCourse(@PathVariable("id") Long id, @RequestBody Course course){
         Optional<Course> courseData = courseRepository.findById(id);
 
         if (courseData.isPresent()){
@@ -82,7 +81,7 @@ public class CourseController {
     }
 
     @DeleteMapping("/Course/{id}")
-    public ResponseEntity<HttpStatus> deleteCourse(@PathVariable Long id){
+    public ResponseEntity<HttpStatus> deleteCourse(@PathVariable("id") Long id){
         try {
             courseRepository.deleteById(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);

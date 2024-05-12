@@ -14,8 +14,38 @@ public class Course {
     private String name;
     private int units;
 
-    @OneToMany(mappedBy = "course")
-    private List<Student> studentList;
+    @ManyToMany(mappedBy = "courseList")
+    private List<Lecturer> lecturers;
+
+    @ManyToMany(mappedBy = "studentList")
+    private List<Student> students;
+
+    @ManyToMany
+    private List<Department> departmentList;
+
+    public List<Lecturer> getLecturers() {
+        return lecturers;
+    }
+
+    public void setLecturers(List<Lecturer> lecturers) {
+        this.lecturers = lecturers;
+    }
+
+    public List<Student> getStudents() {
+        return students;
+    }
+
+    public void setStudents(List<Student> students) {
+        this.students = students;
+    }
+
+    public List<Department> getDepartmentList() {
+        return departmentList;
+    }
+
+    public void setDepartmentList(List<Department> departmentList) {
+        this.departmentList = departmentList;
+    }
 
     public Course() {
 

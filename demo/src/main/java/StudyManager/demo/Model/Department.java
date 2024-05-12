@@ -14,15 +14,53 @@ public class Department {
     private String name;
     private String managerName;
 
-    @OneToMany(mappedBy = "department")
-    private List<Lecturer> lecturerList;
-
-    @OneToMany(mappedBy = "department")
+    @ManyToMany
+    @JoinTable(
+            name = "student-department",
+            joinColumns = @JoinColumn (name = "department_id"),
+            inverseJoinColumns = @JoinColumn (name = "student_id")
+    )
     private List<Student> studentList;
 
-    @OneToMany(mappedBy = "department")
-    private List<Course> courseList;
+    public List<Student> getStudentList() {
+        return studentList;
+    }
 
+    public void setStudentList(List<Student> studentList) {
+        this.studentList = studentList;
+    }
+
+    public List<Lecturer> getLecturerList() {
+        return lecturerList;
+    }
+
+    public void setLecturerList(List<Lecturer> lecturerList) {
+        this.lecturerList = lecturerList;
+    }
+
+    public List<Course> getCourseList() {
+        return courseList;
+    }
+
+    public void setCourseList(List<Course> courseList) {
+        this.courseList = courseList;
+    }
+
+    @ManyToMany
+    @JoinTable(
+            name = "department_lecturer",
+            joinColumns = @JoinColumn (name = "department_id"),
+            inverseJoinColumns = @JoinColumn (name = "lecturer_id")
+    )
+    private List<Lecturer> lecturerList;
+
+    @ManyToMany
+    @JoinTable(
+            name = "department_course",
+            joinColumns = @JoinColumn (name = "department_id"),
+            inverseJoinColumns = @JoinColumn (name = "course_id")
+    )
+    private List<Course> courseList;
 
     public Department(){
 

@@ -16,8 +16,32 @@ public class Lecturer {
     private String lastName;
     private String nationalId;
 
-    @OneToMany(mappedBy = "Lecturer")
+    @ManyToMany
+    @JoinTable(
+            name = "lecturer_course",
+            joinColumns = @JoinColumn(name = "lecturer_id"),
+            inverseJoinColumns = @JoinColumn(name = "course_id")
+    )
     private List<Course> courseList;
+
+    @ManyToMany
+    private List<Department> departmentList;
+
+    public List<Course> getCourseList() {
+        return courseList;
+    }
+
+    public void setCourseList(List<Course> courseList) {
+        this.courseList = courseList;
+    }
+
+    public List<Department> getDepartmentList() {
+        return departmentList;
+    }
+
+    public void setDepartmentList(List<Department> departmentList) {
+        this.departmentList = departmentList;
+    }
 
     public Lecturer(){
 

@@ -1,6 +1,8 @@
 package StudyManager.demo.Model;
 
 import jakarta.persistence.*;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+
 import java.util.List;
 
 
@@ -18,8 +20,32 @@ public class Student {
     private String nationalId;
     private String address;
 
-    @OneToMany(mappedBy = "student")
+    @ManyToMany
+    @JoinTable(
+            name = "student_course",
+            joinColumns = @JoinColumn(name = "student_id"),
+            inverseJoinColumns = @JoinColumn(name = "course_id")
+    )
     private List<Course> courseList;
+
+    @ManyToMany
+    private List<Department> departmentList;
+
+    public List<Course> getCourseList() {
+        return courseList;
+    }
+
+    public void setCourseList(List<Course> courseList) {
+        this.courseList = courseList;
+    }
+
+    public List<Department> getDepartmentList() {
+        return departmentList;
+    }
+
+    public void setDepartmentList(List<Department> departmentList) {
+        this.departmentList = departmentList;
+    }
 
     public Student(){
 

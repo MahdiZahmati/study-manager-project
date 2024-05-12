@@ -2,6 +2,7 @@ package StudyManager.demo.Controller;
 
 import StudyManager.demo.Model.Department;
 import StudyManager.demo.Repository.DepartmentRepository;
+import StudyManager.demo.Service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,10 +16,12 @@ import java.util.Optional;
 public class DepartmentController {
 
     private DepartmentRepository departmentRepository;
+    private final CourseService courseService;
 
     @Autowired
-    public DepartmentController (DepartmentRepository departmentRepository){
+    public DepartmentController (DepartmentRepository departmentRepository, CourseService courseService){
         this.departmentRepository = departmentRepository;
+        this.courseService = courseService;
     }
 
     @PostMapping("/Department")
@@ -48,8 +51,8 @@ public class DepartmentController {
         }
     }
 
-    @GetMapping("/Dapartment")
-    public ResponseEntity<Department> getDepartment(@PathVariable Long id){
+    @GetMapping("/Department/{id}")
+    public ResponseEntity<Department> getDepartment(@PathVariable("id") Long id){
         try {
             Optional<Department> department = departmentRepository.findById(id);
             if (department.isPresent()){
@@ -65,7 +68,7 @@ public class DepartmentController {
     }
 
     @PutMapping("/Department/{id}")
-    public ResponseEntity<Department> updateDepartment(@PathVariable Long id, @RequestBody Department department){
+    public ResponseEntity<Department> updateDepartment(@PathVariable("id") Long id, @RequestBody Department department){
         Optional<Department> departmentData = departmentRepository.findById(id);
 
         if (departmentData.isPresent()){
@@ -82,7 +85,7 @@ public class DepartmentController {
     }
 
     @DeleteMapping("/Department/{id}")
-    public ResponseEntity<HttpStatus> deleteDepartment(@PathVariable Long id){
+    public ResponseEntity<HttpStatus> deleteDepartment(@PathVariable("id") Long id){
         try {
             departmentRepository.deleteById(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);

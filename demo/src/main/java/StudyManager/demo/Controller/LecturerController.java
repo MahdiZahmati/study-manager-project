@@ -48,7 +48,7 @@ public class LecturerController {
     }
 
     @GetMapping("/Lecturer/{id}")
-    public ResponseEntity<Lecturer> getLecturer(@PathVariable Long id){
+    public ResponseEntity<Lecturer> getLecturer(@PathVariable("id") Long id){
         try{
             Optional<Lecturer> lecturer = lecturerRepository.findById(id);
             if (lecturer.isPresent()){
@@ -63,7 +63,7 @@ public class LecturerController {
     }
 
     @PutMapping("/Lecturer/{id}")
-    public ResponseEntity<Lecturer> updateLecturer(@PathVariable long id, @RequestBody Lecturer lecturer){
+    public ResponseEntity<Lecturer> updateLecturer(@PathVariable("id") long id, @RequestBody Lecturer lecturer){
         Optional<Lecturer> lecturerData = lecturerRepository.findById(id);
 
         if (lecturerData.isPresent()){
@@ -82,7 +82,7 @@ public class LecturerController {
     }
 
     @DeleteMapping("/Lecturer/{id}")
-    public ResponseEntity<HttpStatus> deleteStudent(@PathVariable long id){
+    public ResponseEntity<HttpStatus> deleteStudent(@PathVariable("id") long id){
         try {
             lecturerRepository.deleteById(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
