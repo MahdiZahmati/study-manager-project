@@ -15,37 +15,10 @@ public class Course {
     private int units;
 
     @ManyToMany(mappedBy = "courseList")
-    private List<Lecturer> lecturers;
+    private List<Student> studentList;
 
-    @ManyToMany(mappedBy = "studentList")
-    private List<Student> students;
-
-    @ManyToMany
+    @ManyToMany(mappedBy = "courseList")
     private List<Department> departmentList;
-
-    public List<Lecturer> getLecturers() {
-        return lecturers;
-    }
-
-    public void setLecturers(List<Lecturer> lecturers) {
-        this.lecturers = lecturers;
-    }
-
-    public List<Student> getStudents() {
-        return students;
-    }
-
-    public void setStudents(List<Student> students) {
-        this.students = students;
-    }
-
-    public List<Department> getDepartmentList() {
-        return departmentList;
-    }
-
-    public void setDepartmentList(List<Department> departmentList) {
-        this.departmentList = departmentList;
-    }
 
     public Course() {
 
@@ -54,6 +27,31 @@ public class Course {
     public Course(String name, int units) {
         this.name = name;
         this.units = units;
+    }
+
+
+    public List<Student> getStudentList() {
+        return studentList;
+    }
+
+    public void setStudentList(List<Student> studentList) {
+        this.studentList = studentList;
+    }
+
+    public List<Student> getStudents() {
+        return studentList;
+    }
+
+    public void setStudents(List<Student> students) {
+        this.studentList = students;
+    }
+
+    public List<Department> getDepartmentList() {
+        return departmentList;
+    }
+
+    public void setDepartmentList(List<Department> departmentList) {
+        this.departmentList = departmentList;
     }
 
     public long getId() {

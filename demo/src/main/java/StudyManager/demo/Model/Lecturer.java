@@ -16,32 +16,9 @@ public class Lecturer {
     private String lastName;
     private String nationalId;
 
-    @ManyToMany
-    @JoinTable(
-            name = "lecturer_course",
-            joinColumns = @JoinColumn(name = "lecturer_id"),
-            inverseJoinColumns = @JoinColumn(name = "course_id")
-    )
-    private List<Course> courseList;
-
-    @ManyToMany
+    @ManyToMany(mappedBy = "lecturerList")
     private List<Department> departmentList;
 
-    public List<Course> getCourseList() {
-        return courseList;
-    }
-
-    public void setCourseList(List<Course> courseList) {
-        this.courseList = courseList;
-    }
-
-    public List<Department> getDepartmentList() {
-        return departmentList;
-    }
-
-    public void setDepartmentList(List<Department> departmentList) {
-        this.departmentList = departmentList;
-    }
 
     public Lecturer(){
 
@@ -51,6 +28,14 @@ public class Lecturer {
         this.firstName = firstName;
         this.lastName = lastName;
         this.nationalId = nationalId;
+    }
+
+    public List<Department> getDepartmentList() {
+        return departmentList;
+    }
+
+    public void setDepartmentList(List<Department> departmentList) {
+        this.departmentList = departmentList;
     }
 
     public Long getId() {

@@ -22,6 +22,30 @@ public class Department {
     )
     private List<Student> studentList;
 
+    @ManyToMany
+    @JoinTable(
+            name = "lecturer_department",
+            joinColumns = @JoinColumn (name = "department_id"),
+            inverseJoinColumns = @JoinColumn (name = "lecturer_id")
+    )
+    private List<Lecturer> lecturerList;
+    @ManyToMany
+    @JoinTable(
+            name = "department_course",
+            joinColumns = @JoinColumn (name = "department_id"),
+            inverseJoinColumns = @JoinColumn (name = "course_id")
+    )
+    private List<Course> courseList;
+
+
+    public Department(){
+
+    }
+    public Department(String name, String managerName){
+        this.name = name;
+        this.managerName = managerName;
+    }
+
     public List<Student> getStudentList() {
         return studentList;
     }
@@ -44,30 +68,6 @@ public class Department {
 
     public void setCourseList(List<Course> courseList) {
         this.courseList = courseList;
-    }
-
-    @ManyToMany
-    @JoinTable(
-            name = "department_lecturer",
-            joinColumns = @JoinColumn (name = "department_id"),
-            inverseJoinColumns = @JoinColumn (name = "lecturer_id")
-    )
-    private List<Lecturer> lecturerList;
-
-    @ManyToMany
-    @JoinTable(
-            name = "department_course",
-            joinColumns = @JoinColumn (name = "department_id"),
-            inverseJoinColumns = @JoinColumn (name = "course_id")
-    )
-    private List<Course> courseList;
-
-    public Department(){
-
-    }
-    public Department(String name, String managerName){
-        this.name = name;
-        this.managerName = managerName;
     }
 
     public Long getId() {
