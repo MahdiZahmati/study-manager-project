@@ -3,12 +3,14 @@ package StudyManager.demo.Model;
 import jakarta.persistence.*;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import java.io.Serializable;
 import java.util.List;
 
 
 @Entity
 @Table(name = "student")
-public class Student {
+public class Student implements Serializable{
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

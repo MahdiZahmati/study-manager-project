@@ -1,11 +1,14 @@
 package StudyManager.demo.Model;
 
 import jakarta.persistence.*;
+
+import java.io.Serializable;
 import java.util.List;
 
 @Entity
 @Table(name = "course")
-public class Course {
+public class Course implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
@@ -13,6 +16,9 @@ public class Course {
 
     private String name;
     private int units;
+
+    @OneToMany(mappedBy = "course")
+    private List<Assignment> assignmentList;
 
     @ManyToMany(mappedBy = "courseList")
     private List<Student> studentList;
