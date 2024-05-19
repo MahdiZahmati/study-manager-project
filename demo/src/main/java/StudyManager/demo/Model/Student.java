@@ -10,7 +10,6 @@ import java.util.List;
 @Entity
 @Table(name = "student")
 public class Student implements Serializable{
-    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,21 +23,21 @@ public class Student implements Serializable{
 
     @ManyToMany
     @JoinTable(
-            name = "student_course",
+            name = "student_assignment",
             joinColumns = @JoinColumn(name = "student_id"),
-            inverseJoinColumns = @JoinColumn(name = "course_id")
+            inverseJoinColumns = @JoinColumn(name = "assignment_id")
     )
-    private List<Course> courseList;
+    private List<Assignment> assignmentList;
 
-    @ManyToMany(mappedBy = "studentList")
+    @OneToMany(mappedBy = "studentList")
     private List<Department> departmentList;
 
-    public List<Course> getCourseList() {
-        return courseList;
+    public List<Assignment> getAssignmentList() {
+        return assignmentList;
     }
 
-    public void setCourseList(List<Course> courseList) {
-        this.courseList = courseList;
+    public void setAssignmentList(List<Assignment> assignmentList) {
+        this.assignmentList = assignmentList;
     }
 
     public List<Department> getDepartmentList() {

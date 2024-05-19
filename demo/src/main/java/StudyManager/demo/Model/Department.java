@@ -8,7 +8,6 @@ import java.util.List;
 @Entity
 @Table(name = "department")
 public class Department implements Serializable{
-    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,13 +16,9 @@ public class Department implements Serializable{
     private String name;
     private String managerName;
 
-    @ManyToMany
-    @JoinTable(
-            name = "student-department",
-            joinColumns = @JoinColumn (name = "department_id"),
-            inverseJoinColumns = @JoinColumn (name = "student_id")
-    )
-    private List<Student> studentList;
+    @ManyToOne
+    @JoinColumn(name = "student_id")
+    private Student studentList;
 
     @ManyToMany
     @JoinTable(
@@ -49,11 +44,11 @@ public class Department implements Serializable{
         this.managerName = managerName;
     }
 
-    public List<Student> getStudentList() {
+    public Student getStudentList() {
         return studentList;
     }
 
-    public void setStudentList(List<Student> studentList) {
+    public void setStudentList(Student studentList) {
         this.studentList = studentList;
     }
 

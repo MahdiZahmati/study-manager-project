@@ -8,7 +8,6 @@ import java.util.List;
 @Entity
 @Table(name = "course")
 public class Course implements Serializable {
-    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
@@ -19,9 +18,6 @@ public class Course implements Serializable {
 
     @OneToMany(mappedBy = "course")
     private List<Assignment> assignmentList;
-
-    @ManyToMany(mappedBy = "courseList")
-    private List<Student> studentList;
 
     @ManyToMany(mappedBy = "courseList")
     private List<Department> departmentList;
@@ -35,22 +31,6 @@ public class Course implements Serializable {
         this.units = units;
     }
 
-
-    public List<Student> getStudentList() {
-        return studentList;
-    }
-
-    public void setStudentList(List<Student> studentList) {
-        this.studentList = studentList;
-    }
-
-    public List<Student> getStudents() {
-        return studentList;
-    }
-
-    public void setStudents(List<Student> students) {
-        this.studentList = students;
-    }
 
     public List<Department> getDepartmentList() {
         return departmentList;

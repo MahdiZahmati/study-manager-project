@@ -2,12 +2,12 @@ package StudyManager.demo.Model;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.List;
 
 
 @Entity
 @Table(name = "assignments")
 public class Assignment implements Serializable {
-    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,6 +20,10 @@ public class Assignment implements Serializable {
     @ManyToOne
     @JoinColumn(name = "lecturer_id")
     private Lecturer lecturer;
+
+    @ManyToMany(mappedBy = "assignmentList")
+    private List<Student> studentList;
+
 
     @JoinColumn(name = "assignment_id")
     private int assignmentID;
