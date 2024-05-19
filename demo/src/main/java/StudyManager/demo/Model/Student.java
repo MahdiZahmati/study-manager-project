@@ -21,12 +21,7 @@ public class Student implements Serializable{
     private String nationalId;
     private String address;
 
-    @ManyToMany
-    @JoinTable(
-            name = "student_assignment",
-            joinColumns = @JoinColumn(name = "student_id"),
-            inverseJoinColumns = @JoinColumn(name = "assignment_id")
-    )
+    @ManyToMany(mappedBy = "studentList")
     private List<Assignment> assignmentList;
 
     @OneToMany(mappedBy = "studentList")

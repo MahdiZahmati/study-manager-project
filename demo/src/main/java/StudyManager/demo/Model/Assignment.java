@@ -21,7 +21,12 @@ public class Assignment implements Serializable {
     @JoinColumn(name = "lecturer_id")
     private Lecturer lecturer;
 
-    @ManyToMany(mappedBy = "assignmentList")
+    @ManyToMany
+    @JoinTable(
+            name = "assignment_student",
+            joinColumns = @JoinColumn(name = "assignment_id"),
+            inverseJoinColumns = @JoinColumn(name = "student_id")
+    )
     private List<Student> studentList;
 
 
